@@ -4,14 +4,14 @@ const portfolioData = require('./portfolioData');
 const { getYahooData, getGoogleData } = require('./fetchData');
 
 const app = express();
-const PORT = 3001;
+const PORT = process.env.PORT || 3001;
 
 app.use(cors());
 app.use(express.json());
 
 app.get('/api/portfolio', async (req, res) => {
   try {
-    const portfolio = JSON.parse(JSON.stringify(portfolioData));
+    const portfolio = JSON.parse(JSON.stringify(portfolioData)); // Deep copy
 
     // Fetch data for each stock
     for (const sector of portfolio.sectors) {
